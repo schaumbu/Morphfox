@@ -43,4 +43,4 @@ public class Shot : MonoBehaviour
         _rgbd.velocity = ProjectileDirection * speed;
     }
 }
-}
+
