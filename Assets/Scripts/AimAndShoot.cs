@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AimAndShoot : MonoBehaviour
 {
@@ -23,10 +21,6 @@ public class AimAndShoot : MonoBehaviour
         _rgbd = GetComponent<Rigidbody>();
     }
 
-    public void morph(ChooseInput controlls)
-    {
-        ShotPossible = controlls;
-    }
 
     // Update is called once per frame
     void Update()
@@ -62,4 +56,4 @@ public class AimAndShoot : MonoBehaviour
                 
         }
     }
-}
+
