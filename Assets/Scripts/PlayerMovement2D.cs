@@ -60,6 +60,8 @@ public class PlayerMovement2D : MonoBehaviour
             curProjectile.GetComponent<Shot>().ProjectileDirection = new Vector2(ShootDirection.x + Random.Range(0, 11) / 20f - 0.25f, ShootDirection.y + Random.Range(0, 11) / 20f - 0.5f).normalized;
         }
 
+        _dir.Normalize();
+        _rgbd.velocity = _dir * speed * Time.deltaTime;
 
     }
 }
