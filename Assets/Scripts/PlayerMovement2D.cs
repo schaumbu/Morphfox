@@ -18,9 +18,15 @@ public class PlayerMovement2D : MonoBehaviour
     private Rigidbody Projectile;
     [SerializeField]
     private float speed;
+    private Vector3 CursorPos;
+    private Vector3 ObjectPos;
+    private float angle;
+    private Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
+        _dir = transform.up;
         Projectile = GetComponent<Rigidbody>();
         if (!_rgbd)
         {
@@ -35,6 +41,13 @@ public class PlayerMovement2D : MonoBehaviour
         _dir.x = 0;
         _dir.y = 0;
 
+        CursorPos = Input.mousePosition;
+        ObjectPos = Camera.main.WorldToScreenPoint(target.position);
+        CursorPos.x = CursorPos.x - CursorPos.x;
+        CursorPos.y = CursorPos.y - CursorPos.y;
+        angle = Mathf.Atan2(CursorPos.y, CursorPos.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.Euler(Vector2(0, 0, angle));
+        transform.LookAt(ObjectPos);
         AimDirection = Vector3.zero;
         Target = Input.mousePosition;
 
