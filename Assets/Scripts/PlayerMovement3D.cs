@@ -13,7 +13,7 @@ public class PlayerMovement3D : MonoBehaviour
     [SerializeField]
     private GameObject projectile;
     [SerializeField]
-    private Rigidbody _rgbd;
+    private Rigidbody rig;
     [SerializeField]
     private Rigidbody Projectile;
     [SerializeField]
@@ -22,9 +22,9 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         Projectile = GetComponent<Rigidbody>();
-        if (!_rgbd)
+        if (!rig)
         {
-            _rgbd = GetComponent<Rigidbody>();
+            rig = GetComponent<Rigidbody>();
         }
     }
 
@@ -36,6 +36,21 @@ public class PlayerMovement3D : MonoBehaviour
 
         AimDirection = Vector3.zero;
         Target = Input.mousePosition;
+        Vector3 fromCenter = transform.position - Vector3.zero;
+        Quaternion rot = Quaternion.LookRotation(-fromCenter,-transform.forward) * Quaternion.Euler(90,0,0);
+       // transform.up = -fromCenter;
+       // transform.rotation *= Quaternion.AngleAxis(0, -fromCenter);
+        Vector2 mov;
+        mov.x = Input.GetAxis("Horizontal");
+        mov.y = Input.GetAxis("Vertical");
+
+        var rotMov = rot * new Vector3(mov.x, 0, mov.y);
+        rig.AddForce(rotMov * speed);
+        
+
+
+
+        /*
 
         if (Input.GetKey(KeyCode.W))
             _dir.z += 80;
@@ -63,5 +78,15 @@ public class PlayerMovement3D : MonoBehaviour
 
         _dir.Normalize();
         _rgbd.velocity = _dir * speed * Time.deltaTime;
+        */
+       
+
+        rig.rotation = rot;
+
+    }
+    private void FixedUpdate()
+    {
+        Vector3 fromCenter = transform.position - Vector3.zero;
+        rig.AddForce(fromCenter.normalized * 9.81f);
     }
 }
