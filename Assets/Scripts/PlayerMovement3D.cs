@@ -4,89 +4,123 @@ using UnityEngine;
 
 public class PlayerMovement3D : MonoBehaviour
 {
-    private Vector3 _dir = Vector3.zero;
     private Vector3 AimDirection = Vector3.zero;
     private Vector3 Target = Vector3.zero;
+    private Vector2 mov;
+    private Vector2 maus;
+    private Rigidbody rig;
+    private int jumpsleft;
+    private bool onGround;
 
     [SerializeField]
-    private GameObject _player;
-    [SerializeField]
-    private GameObject projectile;
-    [SerializeField]
-    private Rigidbody rig;
-    [SerializeField]
-    private Rigidbody Projectile;
-    [SerializeField]
     private float speed;
+    [SerializeField]
+    private float acceleration;
+    [SerializeField]
+    private float raylength;
+    [SerializeField]
+    private float jumpheight;
+    [SerializeField]
+    private float gravity;
+    [SerializeField]
+    private float friction;
+
+
+    [SerializeField]
+    private AnimationCurve plot;
+
     // Start is called before the first frame update
     void Start()
     {
-        Projectile = GetComponent<Rigidbody>();
         if (!rig)
         {
             rig = GetComponent<Rigidbody>();
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        _dir.x = 0;
-        _dir.z = 0;
+        Time.timeScale = Input.GetKey(KeyCode.LeftShift) ? .1f : 1;
+        if(Physics.Raycast(new Ray(transform.position, Vector3.down), raylength, LayerMask.GetMask("Ground")))
+        {
+            onGround = true;
+        }
+        else
+        {
+            onGround = false;
+        }
 
-        AimDirection = Vector3.zero;
-        Target = Input.mousePosition;
-        Vector3 fromCenter = transform.position - Vector3.zero;
-        Quaternion rot = Quaternion.LookRotation(-fromCenter,-transform.forward) * Quaternion.Euler(90,0,0);
-       // transform.up = -fromCenter;
-       // transform.rotation *= Quaternion.AngleAxis(0, -fromCenter);
-        Vector2 mov;
+        if (onGround)
+        {
+            jumpsleft = 2;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsleft > 0)
+        {   
+            if(jumpsleft == 2)
+            {
+                rig.position = transform.position.normalized * raylength * 2 + rig.position;
+            }
+            rig.AddForce(transform.up * jumpheight);
+            jumpsleft--;
+        }
+
+
         mov.x = Input.GetAxis("Horizontal");
         mov.y = Input.GetAxis("Vertical");
 
-        var rotMov = rot * new Vector3(mov.x, 0, mov.y);
-        rig.AddForce(rotMov * speed);
+
+        maus.x = Input.GetAxis("Mouse X");
+        maus.y = Input.GetAxis("Mouse Y");
+
+        if (Input.GetMouseButton(1)){
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
         
 
 
-
-        /*
-
-        if (Input.GetKey(KeyCode.W))
-            _dir.z += 80;
-        if (Input.GetKey(KeyCode.S))
-            _dir.z -= 80;
-        if (Input.GetKey(KeyCode.A))
-            _dir.x -= 80;
-        if (Input.GetKey(KeyCode.D))
-            _dir.x += 80;
-        if (Input.GetKey(KeyCode.Space))
-            _dir.y += 80;
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            Vector3 ShootDirection;
-            ShootDirection = Input.mousePosition;
-            ShootDirection.z = 0.0f;
-            ShootDirection = Camera.main.ScreenToWorldPoint(ShootDirection);
-            ShootDirection.z = 0.0f;
-            ShootDirection = (ShootDirection - transform.position).normalized;
-            ShootDirection.z = 0.0f;
-
-            GameObject curProjectile = Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(ShootDirection.y, ShootDirection.x) * Mathf.Rad2Deg - 90));
-            curProjectile.GetComponent<Shot>().ProjectileDirection = new Vector2(ShootDirection.x + Random.Range(0, 11) / 20f - 0.25f, ShootDirection.y + Random.Range(0, 11) / 20f - 0.5f).normalized;
-        }
-
-        _dir.Normalize();
-        _rgbd.velocity = _dir * speed * Time.deltaTime;
-        */
-       
-
-        rig.rotation = rot;
-
+    }
+    private void LateUpdate()
+    {
+        plot.AddKey(Time.time, rig.velocity.magnitude);
     }
     private void FixedUpdate()
     {
-        Vector3 fromCenter = transform.position - Vector3.zero;
-        rig.AddForce(fromCenter.normalized * 9.81f);
+        float acc = acceleration;
+        rig.rotation = Quaternion.AngleAxis(maus.x, transform.up) * rig.rotation;
+
+        /*if (mov.x == 0 && mov.y == 0 && Physics.Raycast(new Ray(transform.position, Vector3.down), raylength, LayerMask.GetMask("Ground")))
+        {
+            rig.AddForce(-rig.velocity * friction);
+        }*/
+        if (!onGround)
+        {
+            acceleration *= 0.01f;
+        }
+        Vector3 vel = rig.velocity;
+        vel.y = 0;
+        rig.AddForce(acceleration * ((rig.rotation * Vector3.ClampMagnitude(new Vector3(mov.x, 0, mov.y), 1) * speed) - vel));
+
+        //rig.velocity = Vector3.ClampMagnitude(rig.velocity, speed); // Maximale Geschwindigkeit
+
+        if(rig.velocity.y < 0)
+        {
+            rig.AddForce(Vector3.down * gravity * 1.5f); // Gravity
+        }
+        else
+        {
+            rig.AddForce(Vector3.down * gravity); // Gravity
+        }
+
+
+
+
+        acceleration = acc;
     }
 }
