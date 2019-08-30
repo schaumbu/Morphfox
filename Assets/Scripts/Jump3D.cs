@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class Jump3D : MonoBehaviour
 {
+
     private Rigidbody rig;
+
+    public Animator animController;
+
+    public static bool lockMovement;
+
+    [SerializeField]
+    private float height;
     [SerializeField]
     private Transform RayPoint;
     [SerializeField]
     private Transform MidPoint;
+    [SerializeField]
+    private Transform HeightPoint;
     [SerializeField]
     private bool coll;
 
@@ -26,20 +36,32 @@ public class Jump3D : MonoBehaviour
     [SerializeField]
     private float climbSpeed;
 
+    RaycastHit hitpoint;
 
+    private float gravityvalue;
 
-    
 
     void Start()
     {
         RayPoint.position = new Vector3(transform.position.x, climbHeight, transform.position.z);
+        Debug.Log(climbRange);
+        HeightPoint.position = new Vector3(transform.position.x, climbHeight, climbRange);
         if (!rig)
         {
             rig = GetComponent<Rigidbody>();
         }
+        if (!animController)
+        {
+            animController = GetComponent<Animator>();
+        }
+        gravityvalue = PlayerMovement3D.gravity;
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(RayPoint.position, transform.forward * climbRange);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -52,7 +74,10 @@ public class Jump3D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!Physics.Raycast(RayPoint.position, rig.transform.forward, 1))
+
+        // Debug.DrawRay(MidPoint.position, transform.forward, Color.green, climbRange);
+        // Debug.DrawRay(RayPoint.position, transform.forward, Color.green, climbRange);
+        if (!Physics.Raycast(RayPoint.position, rig.transform.forward, 1))
         {
             Ray = true;
         }
@@ -74,16 +99,47 @@ public class Jump3D : MonoBehaviour
             RayPoint.position = new Vector3(transform.position.x, climbHeight, transform.position.z);
         }
 
-        if (coll)
+        if (animController.GetBool("IsClimbing"))
         {
-            if (!Physics.Raycast(RayPoint.position, rig.transform.forward, 1) && Physics.Raycast(MidPoint.position, rig.transform.forward, climbRange))
+            if(transform.position.y >= hitpoint.point.y)
             {
-                if (Input.GetKey(KeyCode.E))
+                if(transform.position.z != hitpoint.point.z || transform.position.x != hitpoint.point.x)
                 {
-                    rig.AddForce(rig.transform.up * climbSpeed);
+                    float delta = climbSpeed * Time.deltaTime;
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(hitpoint.point.x, transform.position.y, hitpoint.point.z), delta);
+                }
+                else
+                {
+                    
+                    animController.SetBool("IsClimbing", false);
+                    PlayerMovement3D.gravity = gravityvalue;
+                    lockMovement = false;
+                }
+            }
+            else
+            {
+                rig.AddForce(rig.transform.up * climbSpeed);
+            }
+        }
+        else
+        {
+            if (coll)
+            {
+                
+                Ray x = new Ray(HeightPoint.position, transform.up * -1);
+                Physics.Raycast(x, out hitpoint);
+                height = hitpoint.point.y;
+                if (!Physics.Raycast(RayPoint.position, rig.transform.forward, 1) && Physics.Raycast(MidPoint.position, rig.transform.forward, climbRange))
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        animController.SetBool("IsClimbing", true);
+                        PlayerMovement3D.gravity = 0;
+                        lockMovement = true;
+                        rig.AddForce(rig.transform.up * climbSpeed);
+                    }
                 }
             }
         }
-        
     }
 }

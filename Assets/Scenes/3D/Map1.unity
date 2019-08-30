@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 3c2b1b1c3c455f641ba304a37ce5864d, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1475,49 +1475,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
         type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
       propertyPath: speedduration
       value: 
       objectReference: {fileID: 840789550}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: cd
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: footpoint
-      value: 
-      objectReference: {fileID: 830333468}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.data[1].time
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.data[1].inSlope
-      value: 0.030321848
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.data[1].outSlope
-      value: 0.030321848
-      objectReference: {fileID: 0}
-    - target: {fileID: 2266805483227918691, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: turnOverSpeed.m_Curve.Array.data[1].inWeight
-      value: 0.09382721
-      objectReference: {fileID: 0}
     - target: {fileID: 1675522751, guid: bb8b41051113dcd47b70e966571b4e69, type: 3}
       propertyPath: GammaSlider
       value: 
@@ -1536,13 +1496,18 @@ PrefabInstance:
       objectReference: {fileID: 75725014}
     - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
         type: 3}
-      propertyPath: climbHeight
-      value: 8
-      objectReference: {fileID: 0}
+      propertyPath: HeightPoint
+      value: 
+      objectReference: {fileID: 2032646706701850408}
+    - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
+        type: 3}
+      propertyPath: animController
+      value: 
+      objectReference: {fileID: 1638885622}
     - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
         type: 3}
       propertyPath: climbSpeed
-      value: 145
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8b41051113dcd47b70e966571b4e69, type: 3}
@@ -3732,12 +3697,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796184231}
   m_CullTransparentMesh: 0
---- !u!4 &830333468 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1624063842410055086, guid: bb8b41051113dcd47b70e966571b4e69,
-    type: 3}
-  m_PrefabInstance: {fileID: 297024730}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &840789548
 GameObject:
   m_ObjectHideFlags: 0
@@ -3817,9 +3776,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 50
+  m_MaxValue: 500
   m_WholeNumbers: 0
-  m_Value: 50
+  m_Value: 500
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4683,7 +4642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090494448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.45, z: 31.22}
+  m_LocalPosition: {x: 0, y: 0, z: 31.22}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5894,6 +5853,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632923782}
   m_CullTransparentMesh: 0
+--- !u!95 &1638885622 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1703283437, guid: bb8b41051113dcd47b70e966571b4e69,
+    type: 3}
+  m_PrefabInstance: {fileID: 297024730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1655101940
 GameObject:
   m_ObjectHideFlags: 0
@@ -6935,7 +6900,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805979542}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 1.2, y: 3.4, z: 18.8}
+  m_LocalPosition: {x: -10.1, y: 22.3, z: 38.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8313,7 +8278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397060831689773835}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 397060831689346857}
@@ -8412,3 +8377,9 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!4 &2032646706701850408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2032646706701850408, guid: bb8b41051113dcd47b70e966571b4e69,
+    type: 3}
+  m_PrefabInstance: {fileID: 297024730}
+  m_PrefabAsset: {fileID: 0}
