@@ -20,9 +20,6 @@ public class Jump3D : MonoBehaviour
     [SerializeField]
     private Transform HeightPoint;
     [SerializeField]
-    private bool coll;
-
-    [SerializeField]
     private bool Mid;
     [SerializeField]
     private bool Ray;
@@ -40,6 +37,9 @@ public class Jump3D : MonoBehaviour
 
     private float gravityvalue;
 
+    Vector3 targetpoint = Vector3.zero;
+
+    AnimatorTransitionInfo test;
 
     void Start()
     {
@@ -63,20 +63,12 @@ public class Jump3D : MonoBehaviour
         Gizmos.DrawRay(RayPoint.position, transform.forward * climbRange);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        coll = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        coll = false;
-    }
 
     void FixedUpdate()
     {
-
         // Debug.DrawRay(MidPoint.position, transform.forward, Color.green, climbRange);
         // Debug.DrawRay(RayPoint.position, transform.forward, Color.green, climbRange);
+
         if (!Physics.Raycast(RayPoint.position, rig.transform.forward, 1))
         {
             Ray = true;
@@ -101,12 +93,13 @@ public class Jump3D : MonoBehaviour
 
         if (animController.GetBool("IsClimbing"))
         {
-            if(transform.position.y >= hitpoint.point.y)
+            if(transform.position.y >= targetpoint.y)
             {
-                if(transform.position.z != hitpoint.point.z || transform.position.x != hitpoint.point.x)
+                rig.velocity = new Vector3(rig.velocity.x, 0, rig.velocity.z);
+                if (transform.position.z != targetpoint.z || transform.position.x != targetpoint.x)
                 {
                     float delta = climbSpeed * Time.deltaTime;
-                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(hitpoint.point.x, transform.position.y, hitpoint.point.z), delta);
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetpoint.x, transform.position.y, targetpoint.z), delta);
                 }
                 else
                 {
@@ -123,23 +116,24 @@ public class Jump3D : MonoBehaviour
         }
         else
         {
-            if (coll)
-            {
+
                 
                 Ray x = new Ray(HeightPoint.position, transform.up * -1);
                 Physics.Raycast(x, out hitpoint);
-                height = hitpoint.point.y;
+                
                 if (!Physics.Raycast(RayPoint.position, rig.transform.forward, 1) && Physics.Raycast(MidPoint.position, rig.transform.forward, climbRange))
                 {
                     if (Input.GetKey(KeyCode.E))
                     {
+                        targetpoint = hitpoint.point;
+                        height = targetpoint.y;
                         animController.SetBool("IsClimbing", true);
                         PlayerMovement3D.gravity = 0;
                         lockMovement = true;
                         rig.AddForce(rig.transform.up * climbSpeed);
                     }
                 }
-            }
+            
         }
     }
 }
