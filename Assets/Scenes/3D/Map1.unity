@@ -1494,26 +1494,6 @@ PrefabInstance:
       propertyPath: GraphicMenu
       value: 
       objectReference: {fileID: 75725014}
-    - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: HeightPoint
-      value: 
-      objectReference: {fileID: 2032646706701850408}
-    - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: animController
-      value: 
-      objectReference: {fileID: 1638885622}
-    - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: climbSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774250832115725601, guid: bb8b41051113dcd47b70e966571b4e69,
-        type: 3}
-      propertyPath: coll
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8b41051113dcd47b70e966571b4e69, type: 3}
 --- !u!1 &327690868
@@ -5858,12 +5838,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632923782}
   m_CullTransparentMesh: 0
---- !u!95 &1638885622 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1703283437, guid: bb8b41051113dcd47b70e966571b4e69,
-    type: 3}
-  m_PrefabInstance: {fileID: 297024730}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1655101940
 GameObject:
   m_ObjectHideFlags: 0
@@ -8382,9 +8356,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &2032646706701850408 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2032646706701850408, guid: bb8b41051113dcd47b70e966571b4e69,
-    type: 3}
-  m_PrefabInstance: {fileID: 297024730}
-  m_PrefabAsset: {fileID: 0}
