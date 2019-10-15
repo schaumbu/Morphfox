@@ -8,7 +8,7 @@ public class LedgeColliding : MonoBehaviour
 
     public bool hanging;
 
-
+    #region Startfunction
     void Start()
     {
         if (!ledge)
@@ -16,6 +16,7 @@ public class LedgeColliding : MonoBehaviour
             ledge = GetComponent<Ledge>();
         }
     }
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {

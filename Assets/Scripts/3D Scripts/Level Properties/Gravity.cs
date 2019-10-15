@@ -11,6 +11,7 @@ public class Gravity : MonoBehaviour
 
     private float savedGravity;
 
+    #region Startfunction
     void Start()
     {
         if (!rigidbody)
@@ -19,6 +20,7 @@ public class Gravity : MonoBehaviour
         }
         savedGravity = gravity;
     }
+#endregion
 
     void Update()
     {
@@ -34,14 +36,11 @@ public class Gravity : MonoBehaviour
 
     public void FreezeGravity()
     {
-        if(gravity == 0)
-        {
-            gravity = savedGravity;
-        }
-        else
-        {
-            savedGravity = gravity;
-            gravity = 0;
-        }
+        gravity = 0;
+    }
+
+    public void UnFreezeGravity()
+    {
+        gravity = savedGravity;
     }
 }
