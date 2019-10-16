@@ -6,6 +6,7 @@ public class Ledge : MonoBehaviour
 {
     Gravity gravity;
     Rigidbody rigidbody;
+    Jump jump;
 
     private bool pullUpFromHolding;
     private bool pullUp;
@@ -16,6 +17,10 @@ public class Ledge : MonoBehaviour
     #region Startfunction
     void Start()
     {
+        if (!jump)
+        {
+            jump = GetComponent<Jump>();
+        }
         if (!gravity)
         {
             gravity = GetComponent<Gravity>();
@@ -31,7 +36,24 @@ public class Ledge : MonoBehaviour
     {
         if (pullUpFromHolding)
         {
-
+            // abfragen ob pullpoint schon berechnet wurde
+            if(transform.position.y >= edgeClimbPoint.y)
+            {
+                if(transform.position != edgeClimbPoint)
+                {
+                    rigidbody.AddForce(edgeClimbPoint - transform.position);
+                }
+                else
+                {
+                    pullUpFromHolding = false;
+                    gravity.FreezeGravity();
+                    rigidbody.freezeRotation = false;
+                }
+            }
+            else
+            {
+                rigidbody.AddForce(transform.up);
+            }
         }
 
         if (pullUp)
@@ -45,6 +67,13 @@ public class Ledge : MonoBehaviour
         }
     }
 
+    public void CalculatePullPoint()
+    {
+        edgeClimbPoint = rigidbody.transform.position;
+        edgeClimbPoint.y += jump.jumpHeight;
+        edgeClimbPoint += rigidbody.transform.forward;
+    }
+
     public void HoldLedge(Transform col)
     {
         // freeze gravity while hanging
@@ -53,10 +82,14 @@ public class Ledge : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         // Ledge has same vertical rotation as player
         transform.eulerAngles = new Vector3(rigidbody.rotation.x, col.transform.rotation.y, rigidbody.rotation.z);
+        // freeze rotatbion around y axis
+        rigidbody.freezeRotation = true;
     }
 
     public void PullUpFromHolding(Transform col)
     {
+        CalculatePullPoint();
+        pullUpFromHolding = true;
         // Calculate point
         // put shit into Update function
         // get Animation right

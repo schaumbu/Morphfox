@@ -5,6 +5,7 @@ using UnityEngine;
 public class LedgeColliding : MonoBehaviour
 {
     Ledge ledge;
+    Jump jump;
 
     public bool hanging;
 
@@ -15,6 +16,10 @@ public class LedgeColliding : MonoBehaviour
         {
             ledge = GetComponent<Ledge>();
         }
+        if (!jump)
+        {
+            jump = GetComponent<Jump>();
+        }
     }
     #endregion
 
@@ -22,11 +27,22 @@ public class LedgeColliding : MonoBehaviour
     {
         if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Ledge"))
         {
-            if (!hanging)
+            if (!jump.grounded)
             {
-                hanging = true;
+                if (!hanging)
+                {
+                    hanging = true;
+                }
+                ledge.HoldLedge(collision.transform);
+            } else if (Input.GetKey("E"))
+            {
+                if (!hanging)
+                {
+                    hanging = true;
+                }
+                ledge.HoldLedge(collision.transform);
             }
-            ledge.HoldLedge(collision.transform);
+            
         }
     }
 

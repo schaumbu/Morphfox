@@ -10,7 +10,7 @@ public class Jump : MonoBehaviour
     [SerializeField]
     private float raylength;
     [SerializeField]
-    private float jumpHeight;
+    public float jumpHeight;
     [SerializeField]
     private Transform footpoint;
 
