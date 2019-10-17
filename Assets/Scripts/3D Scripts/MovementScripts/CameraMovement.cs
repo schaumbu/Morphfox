@@ -7,8 +7,6 @@ public class CameraMovement : MonoBehaviour
     private GameInput gameInput;
 
     [SerializeField]
-    private float raylength;
-    [SerializeField]
     private Transform camPoint;
     [SerializeField]
     private Transform camPos;
