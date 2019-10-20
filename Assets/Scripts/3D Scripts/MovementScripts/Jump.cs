@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
+    LedgeColliding ledgeCol;
+    Rigidbody rigidbody;
+
+
     public bool grounded;
     public int jumpsLeft;
 
@@ -14,10 +18,12 @@ public class Jump : MonoBehaviour
     [SerializeField]
     private Transform footpoint;
 
-    private Rigidbody rigidbody;
-
     void Start()
     {
+        if (!ledgeCol)
+        {
+            ledgeCol = GetComponent<LedgeColliding>();
+        }
         if (!rigidbody)
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -44,7 +50,7 @@ public class Jump : MonoBehaviour
         }
 
         // Trigger a jump
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && !ledgeCol.hanging)
         {
             if (jumpsLeft == 2)
             {

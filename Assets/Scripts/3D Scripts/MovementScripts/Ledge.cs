@@ -7,6 +7,10 @@ public class Ledge : MonoBehaviour
     Gravity gravity;
     Rigidbody rigidbody;
     Jump jump;
+    LedgeColliding ledgeCol;
+
+    [SerializeField]
+    Transform test;
 
     private bool pullUpFromHolding;
     private bool pullUp;
@@ -17,6 +21,10 @@ public class Ledge : MonoBehaviour
     #region Startfunction
     void Start()
     {
+        if (!ledgeCol)
+        {
+            ledgeCol = GetComponent<LedgeColliding>();
+        }
         if (!jump)
         {
             jump = GetComponent<Jump>();
@@ -39,20 +47,30 @@ public class Ledge : MonoBehaviour
             // abfragen ob pullpoint schon berechnet wurde
             if(transform.position.y >= edgeClimbPoint.y)
             {
-                if(transform.position != edgeClimbPoint)
+                //Debug.Log("OK");
+                if(rigidbody.velocity.y > 0)
                 {
-                    rigidbody.AddForce(edgeClimbPoint - transform.position);
+                    rigidbody.velocity = Vector3.zero;
+                }
+                if (transform.position != edgeClimbPoint)
+                {
+                    rigidbody.AddForce(edgeClimbPoint + transform.position);
                 }
                 else
                 {
                     pullUpFromHolding = false;
-                    gravity.FreezeGravity();
+                    gravity.UnFreezeGravity();
                     rigidbody.freezeRotation = false;
+                    rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                    TurnOffHolding();
                 }
             }
             else
             {
-                rigidbody.AddForce(transform.up);
+                test.position = edgeClimbPoint;
+               // Debug.Log(edgeClimbPoint.x + " " + edgeClimbPoint.y + " " + edgeClimbPoint.z);
+                //Debug.Log("idk");
+                rigidbody.AddForce(transform.up * 50);
             }
         }
 
@@ -70,7 +88,8 @@ public class Ledge : MonoBehaviour
     public void CalculatePullPoint()
     {
         edgeClimbPoint = rigidbody.transform.position;
-        edgeClimbPoint.y += jump.jumpHeight;
+        edgeClimbPoint.y += 4.6f;
+        Debug.Log(edgeClimbPoint.y);
         edgeClimbPoint += rigidbody.transform.forward;
     }
 
@@ -82,6 +101,8 @@ public class Ledge : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         // Ledge has same vertical rotation as player
         transform.eulerAngles = new Vector3(rigidbody.rotation.x, col.transform.rotation.y, rigidbody.rotation.z);
+        // Get on same height as Ledge
+        rigidbody.position = new Vector3(rigidbody.position.x, col.position.y - 4.5f, rigidbody.position.z);
         // freeze rotatbion around y axis
         rigidbody.freezeRotation = true;
     }
@@ -105,8 +126,16 @@ public class Ledge : MonoBehaviour
 
     }
 
-    public void LetFall(Transform col)
+    public void LetFall()
     {
         gravity.UnFreezeGravity();
+        rigidbody.freezeRotation = false;
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        TurnOffHolding();
+    }
+
+    public void TurnOffHolding()
+    {
+        ledgeCol.hanging = false;
     }
 }

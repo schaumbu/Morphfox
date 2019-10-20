@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     private CameraMovement cameraMovement;
     private GameInput gameInput;
     private Jump jump;
+    private LedgeColliding ledgeCol;
 
     [SerializeField]
     private float speed;
@@ -29,6 +30,10 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        if (!ledgeCol)
+        {
+            ledgeCol = GetComponent<LedgeColliding>();
+        }
         if (!jump)
         {
             jump = GetComponent<Jump>();
@@ -68,20 +73,40 @@ public class Movement : MonoBehaviour
         Vector3 vel = rigidbody.velocity;
         vel.y = 0;
 
-        if (Input.GetKey(KeyCode.LeftShift) && speedduration.value > 1)
+        if (!ledgeCol.hanging)
         {
-            rigidbody.AddForce(acceleration * (Quaternion.AngleAxis(cameraMovement.camRotation.x, Vector3.up) * new Vector3(gameInput.wasd.x, 0, gameInput.wasd.y) - vel / boostspeed));
-            speedduration.value--;
+            if (Input.GetKey(KeyCode.LeftShift) && speedduration.value > 1)
+            {
+                rigidbody.AddForce(acceleration * (Quaternion.AngleAxis(cameraMovement.camRotation.x, Vector3.up) * new Vector3(gameInput.wasd.x, 0, gameInput.wasd.y) - vel / boostspeed));
+                speedduration.value--;
+            }
+            else
+            {
+
+                rigidbody.AddForce(acceleration * (Quaternion.AngleAxis(cameraMovement.camRotation.x, Vector3.up) * new Vector3(gameInput.wasd.x, 0, gameInput.wasd.y) - vel / speed));
+                if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    speedduration.value += 0.5f;
+                }
+            }
         }
         else
         {
-
-            rigidbody.AddForce(acceleration * (Quaternion.AngleAxis(cameraMovement.camRotation.x, Vector3.up) * new Vector3(gameInput.wasd.x, 0, gameInput.wasd.y) - vel / speed));
-            if (!Input.GetKey(KeyCode.LeftShift))
+            if(gameInput.wasd.x > 0)
             {
-                speedduration.value += 0.5f;
+                rigidbody.AddForce(acceleration * rigidbody.transform.right - vel / speed);
             }
+            else if(gameInput.wasd.x < 0)
+            {
+                rigidbody.AddForce(acceleration * -rigidbody.transform.right - vel / speed);
+            }
+            else
+            {
+                rigidbody.velocity = rigidbody.velocity * 0.9f * Time.deltaTime;
+            }
+            
         }
+        
 
         Vector2 flooredVelocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.z);
 
