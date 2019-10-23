@@ -5,11 +5,17 @@ using UnityEngine;
 public class GameInput : MonoBehaviour
 {
 
+    [SerializeField]
+    float sensitivity;
+
     public Vector2 wasd;
     public Vector2 mouse;
 
     public bool lockMovement;
     public bool lockRotation;
+    public bool afk;
+
+    public float afkCounter;
 
     void Update()
     {
@@ -28,11 +34,25 @@ public class GameInput : MonoBehaviour
         {
             mouse.x = Input.GetAxis("Mouse X");
             mouse.y = -Input.GetAxis("Mouse Y");
-            mouse = Vector2.ClampMagnitude(mouse, 1);
+            mouse = Vector2.ClampMagnitude(mouse, sensitivity);
         }
         else
         {
             mouse = Vector2.zero;
+        }
+
+        if(wasd == Vector2.zero)
+        {
+            afkCounter += Time.deltaTime;
+            if(afkCounter >= 10)
+            {
+                afk = true;
+            }
+        }
+        else
+        {
+            afkCounter = 0;
+            afk = false;
         }
 
     }

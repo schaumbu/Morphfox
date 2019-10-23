@@ -95,6 +95,11 @@ ModelImporter:
     7400030: Armature|Climbing2
     7400032: Armature|Climbing3
     7400034: Armature|Climbing4
+    7400036: Armature|Hanging
+    7400038: Armature|Climb
+    7400040: Armature|HangingLeft
+    7400042: Armature|HangingRight
+    7400044: Armature|Dance1
     9500000: //RootNode
     13700000: Cube
     2186277476908879412: ImportLogs
@@ -126,34 +131,6 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
-    - serializedVersion: 16
-      name: Armature|Climbing
-      takeName: Armature|Climbing
-      firstFrame: 0
-      lastFrame: 33
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Armature|Empty
       takeName: Armature|Empty
@@ -187,34 +164,6 @@ ModelImporter:
       takeName: Armature|Falling
       firstFrame: 0
       lastFrame: 4
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|idk
-      takeName: Armature|idk
-      firstFrame: 0
-      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -327,62 +276,6 @@ ModelImporter:
       takeName: Armature|Jumping
       firstFrame: 0
       lastFrame: 4
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|LeftTurn
-      takeName: Armature|LeftTurn
-      firstFrame: 0
-      lastFrame: 20
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|RightTurn
-      takeName: Armature|RightTurn
-      firstFrame: 0
-      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -547,10 +440,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Climbing2
-      takeName: Armature|Climbing2
+      name: Armature|Hanging
+      takeName: Armature|Hanging
       firstFrame: 0
-      lastFrame: 33
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -575,10 +468,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Climbing3
-      takeName: Armature|Climbing3
+      name: Armature|Climb
+      takeName: Armature|Climb
       firstFrame: 0
-      lastFrame: 33
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -603,10 +496,66 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Climbing4
-      takeName: Armature|Climbing4
+      name: Armature|HangingLeft
+      takeName: Armature|HangingLeft
       firstFrame: 0
-      lastFrame: 33
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|HangingRight
+      takeName: Armature|HangingRight
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Dance1
+      takeName: Armature|Dance1
+      firstFrame: 0
+      lastFrame: 119
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

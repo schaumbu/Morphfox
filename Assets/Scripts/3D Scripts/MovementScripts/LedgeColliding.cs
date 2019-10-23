@@ -7,6 +7,9 @@ public class LedgeColliding : MonoBehaviour
     Ledge ledge;
     Jump jump;
 
+    [SerializeField]
+    Collider def;
+
     public bool hanging;
 
     Collider colStorage;
@@ -34,10 +37,10 @@ public class LedgeColliding : MonoBehaviour
                 ledge.LetFall();
             } else if (Input.GetKey("w"))
             {
+                hanging = false;
                 ledge.PullUpFromHolding(colStorage.transform);
             }
         }
-          
     }
 
     /*if(hanging && Input.GetKey("s"))

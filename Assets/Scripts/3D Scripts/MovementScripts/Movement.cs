@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    private float boostspeed;
+    public float boostspeed;
     [SerializeField]
     public Slider speedduration;
     [SerializeField]
@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private AnimationCurve turnOverSpeed;
 
-    private Vector3 lastFixedVel;
+    public Vector3 lastFixedVel;
 
     void Start()
     {
