@@ -74,20 +74,17 @@ public class Animations : MonoBehaviour
             }
         }
 
-        if (input.afk)
+        if (input.afk && !dance)
         {
             animController.SetBool("Idle", true);
         }
         else
         {
-            Debug.Log(animController.GetCurrentAnimatorStateInfo(0).IsName("IdleAnim"));
-            {
                 animController.SetBool("Idle", false);
-            }
         }
 
         animController.SetBool("Dance", dance);
-        animController.SetFloat("HangingState", input.wasd.x);
+        animController.SetFloat("HangingState", Mathf.MoveTowards(animController.GetFloat("HangingState"),input.wasd.x, Time.deltaTime * movement.speed));
         animController.SetBool("PullUpState", ledge.pullUpFromHolding);
         animController.SetFloat("WalkingState", Mathf.SmoothDamp(animController.GetFloat("WalkingState"), lerpvector.magnitude / movement.boostspeed, ref showVel, 0.1f));
         animController.SetFloat("JumpingState", lerpvector.y);

@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     private LedgeColliding ledgeCol;
 
     [SerializeField]
-    private float speed;
+    public float speed;
     [SerializeField]
     public float boostspeed;
     [SerializeField]

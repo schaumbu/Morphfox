@@ -85,6 +85,7 @@ public class Jump3D : MonoBehaviour
             Mid = true;
         }
         else
+
         {
             Mid = false;
         }
