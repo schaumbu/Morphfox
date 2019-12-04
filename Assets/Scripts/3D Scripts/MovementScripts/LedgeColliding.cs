@@ -7,6 +7,8 @@ public class LedgeColliding : MonoBehaviour
     Ledge ledge;
     Jump jump;
 
+    Animator anim;
+
     [SerializeField]
     Collider def;
 
@@ -17,6 +19,10 @@ public class LedgeColliding : MonoBehaviour
     #region Startfunction
     void Start()
     {
+        if (!anim)
+        {
+            anim= GetComponent<Animator>();
+        }
         if (!ledge)
         {
             ledge = GetComponent<Ledge>();
@@ -28,16 +34,17 @@ public class LedgeColliding : MonoBehaviour
     }
     #endregion
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (hanging)
         {
             if (Input.GetKey("s"))
             {
                 ledge.LetFall();
-            } else if (Input.GetKey("w"))
+            } else if (Input.GetKeyDown("w"))
             {
                 hanging = false;
+                anim.Play("Climb");
                 ledge.PullUpFromHolding(colStorage.transform);
             }
         }

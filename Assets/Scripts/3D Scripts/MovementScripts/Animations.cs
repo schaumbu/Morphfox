@@ -13,12 +13,10 @@ public class Animations : MonoBehaviour
     Jump jump;
     Rigidbody rig;
 
-    public Animation idle;
-
     private float showVel;
-    private bool dance;
+    public bool dance;
 
-    // TODO MAXIMO.COM
+    // TODO MIXAMO.COM
     // Bessere Jumpanimation
     // Animation beim Aufkommen mit hoher Geschwindigkeit
     // Step up animation
@@ -62,7 +60,7 @@ public class Animations : MonoBehaviour
         Vector3 lerpvector = Vector3.Lerp(movement.lastFixedVel, rig.velocity, lerpfactor);
 
 
-        if(Input.GetKey("h"))
+        if(Input.GetKeyDown("h"))
         {
             if (!dance)
             {
@@ -74,14 +72,7 @@ public class Animations : MonoBehaviour
             }
         }
 
-        if (input.afk && !dance)
-        {
-            animController.SetBool("Idle", true);
-        }
-        else
-        {
-                animController.SetBool("Idle", false);
-        }
+        //Debug.Log(input.afk);
 
         animController.SetBool("Dance", dance);
         animController.SetFloat("HangingState", Mathf.MoveTowards(animController.GetFloat("HangingState"),input.wasd.x, Time.deltaTime * movement.speed));
@@ -90,5 +81,15 @@ public class Animations : MonoBehaviour
         animController.SetFloat("JumpingState", lerpvector.y);
         animController.SetBool("OnGround", jump.grounded);
         animController.SetBool("Hanging", ledgeCol.hanging);
+    }
+
+    public void TriggerIdle()
+    {
+            animController.SetBool("Idle",true);
+        
+    }
+    public void ResetTriggerIdle()
+    {
+        animController.SetBool("Idle",false);
     }
 }

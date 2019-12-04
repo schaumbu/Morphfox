@@ -443,7 +443,7 @@ ModelImporter:
       name: Armature|Hanging
       takeName: Armature|Hanging
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 0.10000001
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

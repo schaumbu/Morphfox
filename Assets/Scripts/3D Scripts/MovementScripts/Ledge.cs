@@ -159,8 +159,9 @@ public class Ledge : MonoBehaviour
 
     public void PullUpFromHolding(Transform col)
     {
-        CalculatePullPoint();
         pullUpFromHolding = true;
+        CalculatePullPoint();
+        
         // Calculate point
         // put shit into Update function
         // get Animation right
